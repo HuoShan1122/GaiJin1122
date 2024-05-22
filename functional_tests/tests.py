@@ -9,8 +9,6 @@ MAX_WAIT = 10
 
 class NewVisitorTest(LiveServerTestCase):
 
-   
-
     def setUp(self):
         self.browser = webdriver.Chrome()
 
@@ -31,7 +29,6 @@ class NewVisitorTest(LiveServerTestCase):
                 time.sleep(0.5)
 
     def test_can_start_a_list_and_retrieve_it_later(self):
-
         # 张三听说有一个在线待办事项的应用
         # 他去看了这个应用的首页
         #self.browser.get('http://localhost:8000')
@@ -110,6 +107,28 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('Buy milk', page_text)
 
         # 两人都很满意，然后去睡觉了
+    def test_layout_and_styling(self):
+        #张三访问首页
+        self.browser.get(self.live_server_url)
+        self.browser.set_window_size(1024, 768)
+        
+        # 他看到输入框完美地居中展示
+        inputbox = self.browser.find_element(By.ID, 'id_new_item')
+        self.assertAlmostEqual(
+            inputbox.location['x'] + inputbox.size['width'] / 2,
+            512,
+            delta=10
+            )
+        # 他新建一个清单，看到输入框仍然完美地居中展示
+        inputbox.send_keys('testing')
+        inputbox.send_keys(Keys.ENTER)
+        self.wait_for_row_in_list_table('1: testing')
+        inputbox = self.browser.find_element(By.ID, 'id_new_item')
+        self.assertAlmostEqual(
+            inputbox.location['x'] + inputbox.size['width'] / 2,
+            512,
+            delta=10
+            )
 
 
 
