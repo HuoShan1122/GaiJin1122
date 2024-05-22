@@ -8,6 +8,9 @@ from selenium.common.exceptions import WebDriverException
 MAX_WAIT = 10
 
 class NewVisitorTest(LiveServerTestCase):
+
+   
+
     def setUp(self):
         self.browser = webdriver.Chrome()
 
@@ -66,8 +69,6 @@ class NewVisitorTest(LiveServerTestCase):
         # 张三想知道这个网站是否会记住他的清单
         # 他看到网站为他生成了一个唯一的URL
 
-        self.fail('Finish the test!')
-
     def test_multiple_users_can_start_lists_at_different_urls(self):
         # 张三新建一个待办事项清单
         self.browser.get(self.live_server_url)
@@ -83,7 +84,7 @@ class NewVisitorTest(LiveServerTestCase):
         # 我们使用一个新浏览器会话
         # 确保张三的信息不会从cookie中泄露出去
         self.browser.quit()
-        self.browser = webdriver.chrome()
+        self.browser = webdriver.Chrome()
 
         # 王五访问首页
         # 页面中看不到张三的清单
